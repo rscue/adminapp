@@ -4,5 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  Auth0Domain: 'rscue.auth0.com',
+  Auth0ClientId: '8SCulXqxR40QSXzCUfx64OvRyRS8gQtV',
+  ApiUrl: 'https://rscue-api.windowsazure.net/',
 };

@@ -1,0 +1,53 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Flota
+            <small>Agregar</small>
+        </h1>
+    </section>
+    <section class="content">
+        <div class="box">
+            <form class="form-horizontal" novalidate #f="ngForm" (ngSubmit)="save(f.valid)" *ngIf="!loading" >
+                <div class="box-body" >
+                    <div class="form-group" [ngClass]="{'has-error': !(name.valid || (name.pristine && !f.submitted))}">
+                        <label class="col-sm-2 control-label" for="name">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" #name="ngModel" name="name" [(ngModel)]="fleet.name" autofocus required minlength="3" maxlength="255"
+                                class="form-control" id="name" placeholder="Nombre" />
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(boatModel.valid || (boatModel.pristine && !f.submitted))}">
+                        <label class="col-sm-2 control-label" for="boatModel">Modelo de embarcación</label>
+                        <div class="col-sm-10">
+                            <input type="text" #boatModel="ngModel" name="boatModel" [(ngModel)]="fleet.boatModel" required minlength="3" maxlength="255"
+                                class="form-control" id="boatModel" placeholder="Modelo de embarcación" />
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(engineType.valid || (engineType.pristine && !f.submitted))}">
+                        <label class="col-sm-2 control-label" for="engineType">Tipo de motor</label>
+                        <div class="col-sm-10">
+                            <input type="text" #engineType="ngModel" name="engineType" [(ngModel)]="fleet.engineType" required minlength="3" maxlength="255"
+                                class="form-control" id="engineType" placeholder="Tipo de motor" />
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(registrationNumber.valid || (registrationNumber.pristine && !f.submitted))}">
+                        <label class="col-sm-2 control-label" for="registrationNumber">Patente</label>
+                        <div class="col-sm-10">
+                            <input type="text" #registrationNumber="ngModel" name="registrationNumber" [(ngModel)]="fleet.registrationNumber" minlength="3"
+                                maxlength="255" class="form-control" id="registrationNumber" placeholder="Patente" />
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="button" *ngIf="fleet.submitted" disabled class="btn btn-success pull-right"><i class="fa fa-spinner fa-pulse fa-fw"></i></button>
+                    <button type="submit" *ngIf="!fleet.submitted" class="btn btn-success pull-right">Guardar</button>
+                </div>
+            </form>
+            <div class="box-body text-center" *ngIf="loading">
+                <i class="fa fa-spinner fa-pulse fa-4x"></i>
+            </div>
+        </div>
+    </section>
+</div>

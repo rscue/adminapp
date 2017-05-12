@@ -1,0 +1,42 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Flota
+            <small>Buscar</small>
+        </h1>
+    </section>
+    <section class="content">
+        <div class="box">           
+            <div class="box-body">
+                <table id="fleetTable" class="table table-bordered table-hover dataTable" role="grid">
+                    <thead>
+                        <tr role="row">
+                            <th>Nombre</th>
+                            <th>Modelo</th>
+                            <th>Motor</th>
+                            <th>Patente</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr role="row" *ngIf="!fleet">
+                            <td colspan="5" class="text-center"><i class="fa fa-spinner fa-pulse fa-3x"></i></td>
+                        </tr>
+                        <tr role="row" *ngIf="fleet?.length === 0" >
+                            <td colspan="5" class="text-center">No hay datos disponibles</td>
+                        </tr>
+                        <tr role="row" *ngFor="let item of fleet">
+                            <td>{{item.name}}</td>
+                            <td>{{item.boatModel}}</td>
+                            <td>{{item.engineType}}</td>
+                            <td>{{item.registrationNumber}}</td>
+                            <td><a [routerLink]="['/fleet', item.id]" title="Editar"><i class="fa fa-edit"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,108 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Misión
+            <small>Agregar</small>
+        </h1>
+    </section>
+    <section class="content">
+        <div class="box">
+            <form class="form-horizontal" #f="ngForm" (ngSubmit)="save(f.valid)" novalidate>
+                <div class="box-body">
+                    <div class="form-group" [ngClass]="{'has-error': !(name.valid || (name.pristine && !f.submitted))}">
+                        <label for="name" class="col-sm-2 control-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" #name="ngModel" name="name" [(ngModel)]="assignment.name" autofocus required minlength="3" maxlength="255"
+                                class="form-control" id="name" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(lastName.valid || (lastName.pristine && !f.submitted))}">
+                        <label for="lastName" class="col-sm-2 control-label">Apellido</label>
+                        <div class="col-sm-10">
+                            <input type="text" #lastName="ngModel" name="lastName" [(ngModel)]="assignment.lastName" required minlength="3" maxlength="255"
+                                class="form-control" id="lastName" placeholder="Apellido">
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(phoneNumber.valid || (phoneNumber.pristine && !f.submitted))}">
+                        <label for="phoneNumber" class="col-sm-2 control-label">Teléfono</label>
+                        <div class="col-sm-10">
+                            <input type="text" #phoneNumber="ngModel" name="phoneNumber" [(ngModel)]="assignment.phoneNumber" required minlength="3"
+                                maxlength="255" class="form-control" id="phoneNumber" placeholder="Teléfono">
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(vehicleType.valid || (vehicleType.pristine && !f.submitted))}">
+                        <label for="vehicleType" class="col-sm-2 control-label">Tipo de embarcación</label>
+                        <div class="col-sm-10">
+                            <select id="vehicleType" #vehicleType="ngModel" name="vehicleType" [(ngModel)]="assignment.vehicleType" required class="form-control">
+                                <option value="undefined" disabled hidden selected>Seleccione un tipo de embarcación</option>
+                                <option *ngFor="let field of vehicleTypes" [value]="field.code">{{field.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(hullSize.valid || (hullSize.pristine && !f.submitted))}">
+                        <label for="hullSize" class="col-sm-2 control-label">Tamaño de casco</label>
+                        <div class="col-sm-10">
+                            <select id="hullSize" #hullSize="ngModel" name="hullSize" style="width: 100%" [(ngModel)]="assignment.hullSize" required
+                                class="form-control">
+                                 <option value="undefined" disabled hidden selected>Seleccione un tamaño de casco</option>
+                                <option *ngFor="let field of hullSizes" [value]="field.code">{{field.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': !(boatModel.valid || (boatModel.pristine && !f.submitted))}">
+                        <label for="boatModel" class="col-sm-2 control-label">Modelo de embarcación</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" #boatModel="ngModel" name="boatModel" [(ngModel)]="assignment.boatModel" required minlength="3" maxlength="255"
+                                class="form-control" id="boatModel" placeholder="Modelo de embarcación">
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(engineType.valid || (engineType.pristine && !f.submitted))}">
+                        <label for="engineType" class="col-sm-2 control-label">Motor (marca y potencia)</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" #engineType="ngModel" name="engineType" [(ngModel)]="assignment.engineType" required minlength="3" maxlength="255"
+                                class="form-control" id="engineType" placeholder="Motor (marca y potencia)">
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(registrationNumber.valid || (registrationNumber.pristine && !f.submitted))}">
+                        <label for="registrationNumber" class="col-sm-2 control-label">Patente</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" #registrationNumber="ngModel" name="registrationNumber" [(ngModel)]="assignment.registrationNumber" minlength="3"
+                                maxlength="255" class="form-control" id="registrationNumber" placeholder="Patente">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Coordenadas</label>
+                        <div class="col-sm-5" [ngClass]="{'has-error': !(latitude.valid || (latitude.pristine && !f.submitted))}">
+                            <input type="number" #latitude="ngModel" name="latitude" [(ngModel)]="assignment.latitude" required class="form-control"
+                                id="latitude" placeholder="Latitud" step="any">
+                        </div>
+                        <div class="col-sm-5" [ngClass]="{'has-error': !(longitude.valid || (longitude.pristine && !f.submitted))}">
+                            <input type="number" #longitude="ngModel" name="longitude" [(ngModel)]="assignment.longitude" required class="form-control"
+                                id="longitude" placeholder="Longitud" step="any">
+                        </div>
+                    </div>
+                    <div class="form-group" [ngClass]="{'has-error': !(workerId.valid || (workerId.pristine && !f.submitted))}">
+                        <label for="workerId" class="col-sm-2 control-label">Trabajador</label>
+                        <div class="col-sm-10">
+                            <select id="workerId" #workerId="ngModel" name="workerId" style="width: 100%" [(ngModel)]="assignment.workerId" required
+                                class="form-control">
+                                <option value="undefined" disabled hidden selected>Seleccione un trabajador</option>
+                                <option *ngFor="let field of workers" [value]="field.id">{{field.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="button" *ngIf="assignment.submitted" disabled class="btn btn-success pull-right"><i class="fa fa-spinner fa-pulse fa-fw"></i></button>
+                    <button type="submit" *ngIf="!assignment.submitted" class="btn btn-success pull-right">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

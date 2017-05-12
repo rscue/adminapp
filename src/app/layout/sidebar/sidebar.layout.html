@@ -1,0 +1,53 @@
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar" *ngIf="auth.profile">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+      <li class="treeview" [routerLinkActive]="['active']">
+        <a [routerLink]="['/home']">
+          <i class="fa fa-dashboard"></i> <span>Inicio</span>
+        </a>
+      </li>
+      <li class="treeview" [routerLinkActive]="['active']">
+        <a href="#">
+          <i class="fa fa-briefcase"></i>
+          <span>Misiones</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li [routerLinkActive]="['active']"><a [routerLink]="['/assignment']"><i class="fa fa-plus"></i> Nueva</a></li>
+          <li [routerLinkActive]="['active']"><a [routerLink]="['/assignment-list']" ><i class="fa fa-search"></i> Buscar</a></li>
+        </ul>
+      </li>      
+      <li class="treeview" [routerLinkActive]="['active']">
+        <a href="#">
+          <i class="fa fa-bookmark"></i>
+          <span>Flota</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li [routerLinkActive]="['active']"><a [routerLink]="['/fleet']"><i class="fa fa-plus"></i> Nuevo</a></li>
+          <li [routerLinkActive]="['active']"><a [routerLink]="['/fleet-list']" ><i class="fa fa-eye"></i> Ver</a></li>
+        </ul>
+      </li>
+      <li class="treeview" [routerLinkActive]="['active']">
+        <a href="#">
+          <i class="fa fa-id-badge"></i>
+          <span>Empleados</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li [routerLinkActive]="['active']"><a [routerLink]="['/worker']"><i class="fa fa-plus"></i> Nuevo</a></li>
+          <li [routerLinkActive]="['active']"><a [routerLink]="['/workers-list']" ><i class="fa fa-eye"></i> Ver</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,61 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Misiones
+            <small>Buscar</small>
+        </h1>
+    </section>
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <form role="form" #f="ngForm" (ngSubmit)="search()" novalidate>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label for="status" class="control-label">Estado</label>
+                            <div>
+                                <select class="form-control select2" id="status" multiple>
+                                    <option *ngFor="let field of statuses" [value]="field.code">{{field.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="timeRange" class="control-label">Desde/Hasta</label>
+                            <div id="daterange-btn" class="form-control">
+                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                                <span>Hoy</span> <b class="caret"></b>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-success pull-right">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+                <hr/>
+            </div>
+            <div class="box-body">
+                <table id="assignmentsTable" class="table dataTable" role="grid">
+                    <thead>
+                        <tr role="row">
+                            <th>Cliente</th>
+                            <th>Fecha incidente</th>
+                            <th>Estado</th>
+                            <th>Auxiliado por</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr role="row" *ngFor="let row of assignments">
+                            <td>{{row.clientName}}</td>
+                            <td>{{row.creationDateTime | amDateFormat: 'lll'}}</td>
+                            <td>{{row.status}}</td>
+                            <td>{{row.workerName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

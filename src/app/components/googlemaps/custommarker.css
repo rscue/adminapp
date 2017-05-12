@@ -1,0 +1,54 @@
+.customMarker {
+    position:absolute;
+    cursor:pointer;
+    width:50px;
+    height:50px;
+    /* -width/2 */
+    margin-left:-25px;
+    /* -height + arrow */
+    margin-top:-60px;
+    border-radius:10px;
+    padding:0px;
+}
+
+.customMarker.idle {
+    background: #00a65a;
+}
+
+.customMarker.offline {
+    background: #dd4b39;
+}
+
+.customMarker.working {
+    background: #00c0ef;
+}
+
+.customMarker:after {
+    content:"";
+    position: absolute;
+    bottom: -10px;
+    left: 15px;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    display: block;
+    width: 0;
+}
+
+.customMarker.idle:after {
+    border-color: #00a65a transparent;
+}
+
+.customMarker.offline:after {
+    border-color: #dd4b39 transparent;
+}
+
+.customMarker.working:after {
+    border-color: #00c0ef transparent;
+}
+
+.customMarker img {
+    width:45px;
+    height:45px;
+    margin:3px;
+    border-radius:50%;
+}

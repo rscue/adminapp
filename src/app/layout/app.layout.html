@@ -1,0 +1,6 @@
+<div class="wrapper">
+    <header-layout *ngIf="tokenNotExpired()"></header-layout>
+    <sidebar-layout *ngIf="tokenNotExpired()"></sidebar-layout>
+    <router-outlet></router-outlet>
+    <footer-layout></footer-layout>
+</div>

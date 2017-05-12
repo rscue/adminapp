@@ -1,0 +1,8 @@
+img {
+    max-width: 100%; /* This rule is very important, please do not ignore this! */
+    max-height: 75vh;
+}
+
+.modal-body {
+    padding: 0;
+} 
