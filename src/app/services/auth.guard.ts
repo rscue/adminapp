@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { CanActivate } from '@angular/router';
 import { Auth } from './auth.service';
-import { ProfilePage } from '../pages/profile/profile.page';
+import { ProfilePageComponent } from '../pages/profile/profile.page';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (this.auth.authenticated()) {
             return true;
-        } else if (this.auth.auth0User && next.component == ProfilePage) {
+        } else if (this.auth.auth0User && next.component === ProfilePageComponent) {
             return true;
         } else {
             localStorage.setItem('redirect_url', state.url);

@@ -28,13 +28,13 @@
         "app/components/googlemaps/custommarker.css",
         "app/layout/skin.css",
         "../node_modules/toastr/build/toastr.css",
-        "../node_modules/cropperjs/dist/cropper.css",
-        "styles.css"
+        "../node_modules/cropperjs/dist/cropper.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js",
         "../node_modules/select2/dist/js/select2.js",
+        "../node_modules/jquery-slimscroll/jquery.slimscroll.js",
         "../node_modules/admin-lte/dist/js/app.js"
       ],
       "environmentSource": "environments/environment.ts",

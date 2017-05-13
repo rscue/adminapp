@@ -1,12 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import Cropper from 'cropperjs';
 
 @Component({
-    selector: 'avatar-modal',
+    selector: 'app-avatar-modal',
     templateUrl: './avatar.modal.html',
     styleUrls: ['./avatar.modal.css']
 })
-export class AvatarModalPage {
+export class AvatarModalPageComponent implements AfterViewInit {
     public visible = false;
     private visibleAnimate = false;
     cropper: Cropper;
@@ -34,7 +34,7 @@ export class AvatarModalPage {
 
         this.inputImage.onchange = () => {
             let file;
-            let files = this.inputImage.files;
+            const files = this.inputImage.files;
             if (this.cropper && files && files.length) {
                 file = files[0];
 
@@ -62,7 +62,7 @@ export class AvatarModalPage {
     }
 
     public save(): void {
-        let image = this.cropper.getCroppedCanvas({ height: 160, width: 160 }).toDataURL();
+        const image = this.cropper.getCroppedCanvas({ height: 160, width: 160 }).toDataURL();
         this.hide();
         this.croppedImage.emit(image);
         this.image.src = image;

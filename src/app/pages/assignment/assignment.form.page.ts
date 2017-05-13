@@ -7,11 +7,11 @@ import 'select2';
 import 'select2/dist/js/i18n/es';
 
 @Component({
-    selector: 'assignment-form-page',
+    selector: 'app-assignment-form-page',
     templateUrl: './assignment.form.page.html',
     styleUrls: ['./assignment.form.page.css']
 })
-export class AssignmentFormPage {
+export class AssignmentFormPageComponent {
     assignment: AssignmentModel;
     public vehicleTypes: Array<{ code: string, name: string }>;
     public hullSizes: Array<{ code: string, name: string }>;

@@ -10,6 +10,6 @@ export class ProfileModel {
     submitted: boolean;
 
     constructor() {
-        this.avatarUri = '/img/logo.png';
+        this.avatarUri = '/assets/img/logo.png';
     }
 }

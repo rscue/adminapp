@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FleetModel } from '../../models/fleet.model';
 import { FleetService } from '../../services/fleet.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-    selector: 'fleet-form-page',
+    selector: 'app-fleet-form-page',
     templateUrl: './fleet.form.page.html'
 })
-export class FleetFormPage {
+export class FleetFormPageComponent implements OnInit {
     fleet: FleetModel;
     loading: boolean;
 
@@ -23,12 +23,12 @@ export class FleetFormPage {
                     this.loading = true;
                     return this.fleetService.get(params['id']);
                 } else {
-                    return new Promise((resolve) => { resolve(new FleetModel()) });
+                    return new Promise((resolve) => { resolve(new FleetModel()); });
                 }
             })
             .subscribe((fleet: FleetModel) => {
                 this.loading = false;
-                this.fleet = fleet
+                this.fleet = fleet;
             });
     }
 

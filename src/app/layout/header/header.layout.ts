@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Auth } from '../../services/auth.service';
 
 @Component({
-    selector: 'header-layout',
+    selector: 'app-header-layout',
     templateUrl: './header.layout.html'
 })
-export class HeaderLayout {
+export class HeaderLayoutComponent {
     constructor(public auth: Auth) {}
 }

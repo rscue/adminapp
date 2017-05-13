@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Auth } from '../../services/auth.service';
 
 @Component({
-    selector: 'sidebar-layout',
+    selector: 'app-sidebar-layout',
     templateUrl: './sidebar.layout.html'
 })
-export class SidebarLayout {
+export class SidebarLayoutComponent {
     constructor(public auth: Auth) { }
 }

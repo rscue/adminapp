@@ -14,9 +14,13 @@ export class Auth {
   profile: ProfileModel;
 
   constructor(private router: Router, private authHttp: AuthHttp) {
-    this.auth0 = new Auth0({ domain: environment.Auth0Domain, clientID: environment.Auth0ClientId, callbackURL: `${window.location.origin}/login` });
+    this.auth0 = new Auth0({
+      domain: environment.Auth0Domain,
+      clientID: environment.Auth0ClientId,
+      callbackURL: `${window.location.origin}/login`
+    });
 
-    let result = this.auth0.parseHash(window.location.hash);
+    const result = this.auth0.parseHash(window.location.hash);
     if (result && result.idToken) {
       localStorage.setItem('id_token', result.idToken);
     }
@@ -41,14 +45,14 @@ export class Auth {
 
   getAuth0User(): Promise<ProfileModel> {
     return new Promise((resolve, reject) => {
-      let auth0User = JSON.parse(localStorage.getItem('auth0User'));
+      const auth0User = JSON.parse(localStorage.getItem('auth0User'));
       if (!auth0User) {
-        let idToken = localStorage.getItem('id_token');
+        const idToken = localStorage.getItem('id_token');
         if (idToken) {
           this.auth0.getProfile(idToken, (err, profile) => {
             localStorage.setItem('auth0User', JSON.stringify(profile));
             this.auth0User = profile;
-            this.getProfile().then((profile) => resolve(profile)).catch((err) => reject(err));
+            this.getProfile().then((value) => resolve(value)).catch((error) => reject(error));
           });
         }
       } else {
@@ -60,7 +64,7 @@ export class Auth {
 
   getProfile(): Promise<ProfileModel> {
     return new Promise((resolve, reject) => {
-      let profile = JSON.parse(localStorage.getItem('profile'));
+      const profile = JSON.parse(localStorage.getItem('profile'));
       if (!profile) {
         this.authHttp.get(`${environment.ApiUrl}provider/${this.auth0User['user_id']}`).subscribe(data => {
           localStorage.setItem('profile', JSON.stringify(data.json()));

@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WorkerModel } from '../../models/worker.model';
 import { WorkerService } from '../../services/worker.service';
 
 @Component({
-    selector: 'worker-search-page',
+    selector: 'app-worker-search-page',
     templateUrl: './worker.search.page.html',
     styleUrls: ['./worker.search.page.css']
 })
-export class WorkerSearchPage {
-    workers: Array<WorkerModel>
+export class WorkerSearchPageComponent implements OnInit {
+    workers: Array<WorkerModel>;
 
     constructor(private workerService: WorkerService) { }
 

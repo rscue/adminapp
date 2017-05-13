@@ -1,6 +1,6 @@
 export class LoginModel {
-    email: string;
-    password: string;
-    submitted: boolean;
-    hasError: boolean;
+  email: string;
+  password: string;
+  submitted: boolean;
+  hasError: boolean;
 }

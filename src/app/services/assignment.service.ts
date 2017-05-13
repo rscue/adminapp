@@ -21,12 +21,12 @@ export class AssignmentService {
             if (err.status !== 404) {
                 Toastr.error('Hubo un error al traer la información de las misiones, por favor refresque la pantalla');
             }
-        })
+        });
     }
 
     addAssignment(model: AssignmentModel): Promise<any> {
         return new Promise((resolve, reject) => {
-            let client: ClientModel = {
+            const client: ClientModel = {
                 boatModel: model.boatModel,
                 engineType: model.engineType,
                 hullSize: model.hullSize,
@@ -39,7 +39,7 @@ export class AssignmentService {
                 id: this.guid()
             };
             this.authHttp.post(`${API_URL}client`, client).subscribe(data => {
-                let assignment = {
+                const assignment = {
                     clientId: client.id,
                     providerId: this.auth.auth0User['user_id'],
                     creationDateTime: new Date(),

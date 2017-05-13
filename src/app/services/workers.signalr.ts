@@ -9,16 +9,16 @@ declare var API_URL: string;
 @Injectable()
 export class WorkersSignalr {
     private hubConnection: any;
-    private _updatedWorkerLocation: BehaviorSubject<{ id: string, location: LocationModel }>
-    private _updatedWorkerStatus: BehaviorSubject<{id: string, status: string}>
+    private _updatedWorkerLocation: BehaviorSubject<{ id: string, location: LocationModel }>;
+    private _updatedWorkerStatus: BehaviorSubject<{id: string, status: string}>;
 
 
     constructor(private auth: Auth) {
         this._updatedWorkerLocation = <BehaviorSubject<{ id: string, location: LocationModel }>>new BehaviorSubject({});
         this._updatedWorkerStatus = <BehaviorSubject<{id: string, status: string}>>new BehaviorSubject({});
 
-        //this.hubConnection = $.hubConnection(`${API_URL.slice(0, -1)}`, { qs: `user=${this.auth.auth0User['user_id']}` });
-        let workersHubProxy = this.hubConnection.createHubProxy('workersHub');
+        // this.hubConnection = $.hubConnection(`${API_URL.slice(0, -1)}`, { qs: `user=${this.auth.auth0User['user_id']}` });
+        const workersHubProxy = this.hubConnection.createHubProxy('workersHub');
         workersHubProxy.on('updateWorkerLocation', (id: string, location: LocationModel) => {
             this._updatedWorkerLocation.next({ id: id, location: location });
         });

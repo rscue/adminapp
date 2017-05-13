@@ -7,15 +7,15 @@
                 <h4 class="modal-title" id="avatarModalLabel">Cambiar imágen</h4>
             </div>
             <div class="modal-body">
-                <img id="image" src="/img/logo.png" #image  />
+                <img id="image" src="/assets/img/logo.png" #image  />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" (click)="hide()">Cerrar</button>
                 <label class="btn btn-info" for="inputImage" title="Subir archivo de imágen">
                     <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
                     Elegir imágen
-                </label>                
-                <button type="button" class="btn btn-primary" (click)="save()">Guardar</button>                
+                </label>
+                <button type="button" class="btn btn-primary" (click)="save()">Guardar</button>
             </div>
         </div>
     </div>

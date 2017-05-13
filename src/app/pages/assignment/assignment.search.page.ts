@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as moment from 'moment';
 import 'bootstrap-daterangepicker';
 import 'select2';
@@ -7,10 +7,10 @@ import { AssignmentModel } from '../../models/assignment.model';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-    selector: 'assignmentSearch-page',
+    selector: 'app-assignment-search-page',
     templateUrl: './assignment.search.page.html'
 })
-export class AssignmentSearchPage {
+export class AssignmentSearchPageComponent implements OnInit, AfterViewInit {
     statuses: [{ code: string, label: string }];
     model: { statuses: Array<string>, startDateTime: Date, endDateTime: Date };
     assignments: Array<AssignmentModel>;
@@ -32,7 +32,7 @@ export class AssignmentSearchPage {
                     this.loading = true;
                     return params['statuses'].split(',');
                 } else {
-                    return new Promise((resolve) => { resolve(new Array<string>()) });
+                    return new Promise((resolve) => { resolve(new Array<string>()); });
                 }
             })
             .subscribe((statuses: string) => {
@@ -52,7 +52,7 @@ export class AssignmentSearchPage {
     }
 
     ngAfterViewInit() {
-        let self = this;
+        const self = this;
         $('#daterange-btn')['daterangepicker'](
             {
                 ranges: {

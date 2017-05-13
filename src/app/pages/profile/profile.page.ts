@@ -1,20 +1,20 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ProfileModel } from '../../models/profile.model';
 import { Auth } from '../../services/auth.service';
 import 'select2';
 import { Router } from '@angular/router';
-import { AvatarModalPage } from '../avatar/avatar.modal';
+import { AvatarModalPageComponent } from '../avatar/avatar.modal';
 
 
 @Component({
-    selector: 'profile-page',
+    selector: 'app-profile-page',
     templateUrl: './profile.page.html',
     styleUrls: ['./profile.page.css']
 })
-export class ProfilePage {
+export class ProfilePageComponent implements AfterViewInit {
     public profile: ProfileModel;
     public states: [{ code: string, name: string }];
-    @ViewChild('avatarModal') modal: AvatarModalPage;
+    @ViewChild('avatarModal') modal: AvatarModalPageComponent;
     @ViewChild('logoImg') logoImg: ElementRef;
     shouldSaveImage: boolean;
 
@@ -75,7 +75,7 @@ export class ProfilePage {
             { code: 'G', name: 'Santiago del Estero' },
             { code: 'V', name: 'Tierra del Fuego' },
             { code: 'T', name: 'Tucumán' }
-        ]
+        ];
     }
 
     changeLogo(image) {
