@@ -8,7 +8,7 @@ import Cropper from 'cropperjs';
 })
 export class AvatarModalPageComponent implements AfterViewInit {
     public visible = false;
-    private visibleAnimate = false;
+    public visibleAnimate = false;
     cropper: Cropper;
     image: HTMLImageElement;
     inputImage: HTMLInputElement;
