@@ -36,11 +36,11 @@ export class CustomAuthHttp {
   }
 
   public post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-    return this.authIntercept(this.authHttp.post(url, options));
+    return this.authIntercept(this.authHttp.post(url, body, options));
   }
 
   public put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-    return this.authIntercept(this.authHttp.put(url, options));
+    return this.authIntercept(this.authHttp.put(url, body, options));
   }
 
   public delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
@@ -48,7 +48,7 @@ export class CustomAuthHttp {
   }
 
   public patch(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-    return this.authIntercept(this.authHttp.patch(url, options));
+    return this.authIntercept(this.authHttp.patch(url, body, options));
   }
 
   public head(url: string, options?: RequestOptionsArgs): Observable<Response> {
