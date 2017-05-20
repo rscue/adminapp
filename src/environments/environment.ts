@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   Auth0Domain: 'rscue.auth0.com',
   Auth0ClientId: '8SCulXqxR40QSXzCUfx64OvRyRS8gQtV',
-  ApiUrl: 'https://rscue-api.azurewebsites.net/',
+  ApiUrl: 'http://localhost:5000/',
+  Auth0Audience: 'https://api.rscue.center/'
 };

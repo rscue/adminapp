@@ -3,15 +3,13 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { Auth } from '../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 
-declare var loading_screen;
-
 @Component({
-  selector: 'app-root',
+  selector: 'app-layout',
   templateUrl: './app.layout.html',
 })
 export class AppLayoutComponent {
   constructor(private auth: Auth, private router: Router) {
-    $(() => loading_screen.finish());
+    this.auth.loadSession();
     router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         $(() => {
@@ -25,6 +23,6 @@ export class AppLayoutComponent {
   }
 
   tokenNotExpired() {
-    return tokenNotExpired() && this.auth.auth0User && this.auth.profile;
+    return tokenNotExpired() && this.auth.profile;
   }
 }

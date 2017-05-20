@@ -7,17 +7,14 @@ import { ProfilePageComponent } from '../pages/profile/profile.page';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private auth: Auth, private router: Router) { }
+  constructor(private auth: Auth, private router: Router) { }
 
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this.auth.authenticated()) {
-            return true;
-        } else if (this.auth.auth0User && next.component === ProfilePageComponent) {
-            return true;
-        } else {
-            localStorage.setItem('redirect_url', state.url);
-            this.router.navigate(['login']);
-            return false;
-        }
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.auth.isAuthenticated()) {
+      return true;
+    } else {
+      this.auth.login();
+      return false;
     }
+  }
 }

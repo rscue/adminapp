@@ -1,51 +1,25 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { AssignmentService } from '../../services/assignment.service';
-import { WorkersSignalr } from '../../services/workers.signalr';
 import { WorkerService } from '../../services/worker.service';
 import { WorkerModel } from '../../models/worker.model';
-
-declare var google: any;
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.css']
 })
-export class HomePageComponent implements AfterViewInit, OnDestroy, OnInit {
+export class HomePageComponent implements OnInit {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   markers: { [id: string]: any } = {};
   workers: Array<WorkerModel>;
 
-  constructor(public assignmentService: AssignmentService, private workerSignalr: WorkersSignalr, private workerService: WorkerService) {
+  constructor(public assignmentService: AssignmentService, private workerService: WorkerService) {
     this.assignmentService.getAssignmentsSummary();
     this.workerService.search().then(workers => {
       this.workers = workers;
       this.addMarkers();
     });
-
-    this.workerSignalr.updateWorkerLocation.subscribe(value => {
-      const marker = this.markers[value.id];
-      if (marker) {
-        const location = new google.maps.LatLng(value.location.latitude, value.location.longitude);
-        marker.setPosition(location);
-      }
-    });
-
-    this.workerSignalr.updateWorkerStatus.subscribe(value => {
-      const marker = this.markers[value.id];
-      if (marker) {
-        marker.setStatus(value.status);
-      }
-    });
-  }
-
-  ngAfterViewInit() {
-    this.workerSignalr.start();
-  }
-
-  ngOnDestroy() {
-    this.workerSignalr.stop();
   }
 
   ngOnInit() {

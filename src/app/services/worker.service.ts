@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Auth } from './auth.service';
 import { WorkerModel } from '../models/worker.model';
-import { AuthHttp } from 'angular2-jwt';
 import * as Toastr from 'toastr';
 import { environment } from '../../environments/environment';
-
+import { CustomAuthHttp } from './customAuthHttp';
 
 declare var Auth0;
 
@@ -12,12 +11,7 @@ declare var Auth0;
 export class WorkerService {
   auth0: any;
 
-  constructor(private auth: Auth, private authHttp: AuthHttp) {
-    this.auth0 = new Auth0({
-      domain: environment.Auth0Domain,
-      clientID: environment.Auth0ClientId,
-      callbackURL: `${window.location.origin}/login`
-    });
+  constructor(private auth: Auth, private authHttp: CustomAuthHttp) {
   }
 
   add(model: WorkerModel): Promise<WorkerModel> {

@@ -19,12 +19,7 @@ export class ProfilePageComponent implements AfterViewInit {
     shouldSaveImage: boolean;
 
     constructor(private auth: Auth, private router: Router) {
-        if (this.auth.profile) {
-            this.profile = this.auth.profile;
-        } else {
-            this.profile = new ProfileModel();
-            this.profile.email = this.auth.auth0User['email'];
-        }
+        this.profile = this.auth.profile ? this.auth.profile : new ProfileModel();
         this.setupStates();
     }
 
@@ -37,6 +32,7 @@ export class ProfilePageComponent implements AfterViewInit {
     }
 
     save(isValid: boolean) {
+      this.auth.renewAuth();
         if (isValid) {
             this.profile.submitted = true;
             this.auth.saveProfile(this.profile).then(() => {
