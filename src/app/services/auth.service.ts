@@ -30,6 +30,9 @@ export class Auth {
     this.apiId = localStorage.getItem('api_id');
     try {
       this.profile = await this.getProfile();
+      this.router.navigate(['/home']);
+    } catch (err) {
+      console.log('There was no profile to load');
     }
     finally {
       $(() => loading_screen.finish());
@@ -66,9 +69,9 @@ export class Auth {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt));
     localStorage.setItem('api_id', authResult.idTokenPayload['https://api.rscue.center/id']);
-
-    // This is only use for the profile model is the user doesn't have one;
-    sessionStorage.setItem('email', authResult.idTokenPayload.email);
+    localStorage.setItem('auth0_id', authResult.idTokenPayload.sub);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('email', authResult.idTokenPayload.email);
 
     // Renew token before expiration
     const tenMinutes = 600000;
@@ -96,11 +99,9 @@ export class Auth {
           resolve(this.profile);
         }, err => {
           if (err.status === 404) {
-            this.router.navigate(['profile'], { queryParams: {}, preserveQueryParams: false });
-            resolve(null);
-          } else {
-            reject(err);
+            this.router.navigate(['/profile'], { queryParams: {}, preserveQueryParams: false });
           }
+          reject(err);
         });
       } else {
         resolve(profile);
@@ -108,16 +109,51 @@ export class Auth {
     });
   }
 
-  saveProfile(profile: ProfileModel): Promise<any> {
+  async saveProfile(model: ProfileModel): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.authHttp.post(`${environment.ApiUrl}provider`, profile).subscribe(data => {
-        this.profile = data.json();
-        localStorage.setItem('profile', JSON.stringify(data.json()));
-        Toastr.success('El perfil fue guardado correctamente');
-        resolve();
-      }, err => {
+      const prvResource = `${environment.ApiUrl}provider`;
+      const error = (err) => {
         Toastr.error('Error guardando el perfil, intente nuevamente');
         reject(err);
+      };
+      const ok = (data) => {
+        const profile = data.json();
+        this.profile = profile;
+        localStorage.setItem('profile', JSON.stringify(profile));
+        Toastr.success('El perfil fue guardado correctamente');
+        resolve();
+      };
+      const add = (data) => {
+        const location = data.headers.get('Location');
+        this.authHttp.get(location).subscribe(result => {
+          const profile = result.json();
+          this.updateAuth0Profile(profile.id).then(() => {
+            ok(result);
+          }).catch((err) => error(err));
+        }, error);
+      };
+      if (model.id) {
+        this.authHttp.put(`${prvResource}/${model.id}`, model).subscribe(ok, error);
+      } else {
+        this.authHttp.post(prvResource, model).subscribe(add, error);
+      }
+    });
+  }
+
+  async updateAuth0Profile(api_id: string) {
+    return new Promise((resolve, reject) => {
+      const userId = localStorage.getItem('auth0_id');
+      const auth0Manage = new Management({
+        domain: environment.Auth0Domain,
+        token: localStorage.getItem('id_token')
+      });
+      const userMetadata = { api_id };
+      auth0Manage.patchUserMetadata(userId, userMetadata, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
       });
     });
   }
@@ -125,7 +161,7 @@ export class Auth {
   public logout() {
     // Remove token from localStorage
     localStorage.clear();
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   };
 
   public isAuthenticated(): boolean {
@@ -137,7 +173,7 @@ export class Auth {
 
   saveAvatar(image) {
     this.authHttp.post(`${environment.ApiUrl}provider/profilepic/${this.profile.id}`, { imageBase64: image }).subscribe(data => {
-      this.profile.avatarUri = data.json();
+      this.profile.profilePictureUrl = data.json();
       localStorage.setItem('profile', JSON.stringify(this.profile));
     }, err => {
       Toastr.error('Hubo un error guardando el avatar, por favor intenta de nuevo');

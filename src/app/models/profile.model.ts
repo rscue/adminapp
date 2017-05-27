@@ -6,11 +6,11 @@ export class ProfileModel {
   zipCode: string;
   city: string;
   state: string;
-  avatarUri: string;
+  profilePictureUrl: string;
   submitted: boolean;
 
   constructor() {
-    this.avatarUri = '/assets/img/logo.png';
-    this.email = sessionStorage.getItem('email');
+    this.profilePictureUrl = '/assets/img/logo.png';
+    this.email = localStorage.getItem('email');
   }
 }

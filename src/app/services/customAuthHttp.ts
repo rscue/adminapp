@@ -18,7 +18,7 @@ export class CustomAuthHttp {
     response.subscribe(null, (err) => {
       if (this.isUnauthorized(err.status)) {
        localStorage.clear();
-       this.router.navigate(['/']);
+       this.router.navigate(['/home']);
       }
     });
     return response;
