@@ -36,7 +36,7 @@ export class ProfilePageComponent implements AfterViewInit {
       this.profile.submitted = true;
       this.auth.saveProfile(this.profile).then(() => {
         if (this.shouldSaveImage) {
-         this.auth.saveAvatar(this.logoImg.nativeElement.src);
+          this.auth.saveAvatar(this.logoImg.nativeElement.src);
         }
         this.profile.submitted = false;
         this.router.navigate(['/home']);
@@ -73,7 +73,8 @@ export class ProfilePageComponent implements AfterViewInit {
     ];
   }
 
-  changeLogo(image) {
+  changeLogo({ image, blob }) {
+    console.log(blob);
     this.logoImg.nativeElement.src = image;
     if (!this.profile.id) {
       this.shouldSaveImage = true;

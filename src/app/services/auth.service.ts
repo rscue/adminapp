@@ -30,7 +30,6 @@ export class Auth {
     this.apiId = localStorage.getItem('api_id');
     try {
       this.profile = await this.getProfile();
-      this.router.navigate(['/home']);
     } catch (err) {
       console.log('There was no profile to load');
     }
@@ -54,9 +53,13 @@ export class Auth {
       if (authResult && authResult.accessToken && authResult.state === state) {
         this.setSession(authResult);
         window.location.hash = '';
-        this.loadSession();
+        this.loadSession().then(() => {
+          this.router.navigate(['home']);
+        });
       } else if (this.isAuthenticated()) {
-        this.loadSession();
+        this.loadSession().then(() => {
+          this.router.navigate(['home']);
+        })
       } else {
         this.login();
       }

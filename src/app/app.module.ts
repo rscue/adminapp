@@ -2,12 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, RequestOptions } from '@angular/http';
-import {MomentModule} from 'angular2-moment';
+import { MomentModule } from 'angular2-moment';
 import { AuthHttp } from 'angular2-jwt';
 
 import { AppRoutingModule, AppRoutingProviders } from './app-routing.module';
 
 import { HomePageComponent } from './pages/home/home.page';
+import { DashboardPageComponent } from './pages/dashboard/dashboard.page';
 import { ProfilePageComponent } from './pages/profile/profile.page';
 import { AvatarModalPageComponent } from './pages/avatar/avatar.modal';
 import { AssignmentSearchPageComponent } from './pages/assignment/assignment.search.page';
@@ -34,6 +35,7 @@ import { AppLayoutComponent } from './layout/app.layout';
 import { SidebarLayoutComponent } from './layout/sidebar/sidebar.layout';
 import { HeaderLayoutComponent } from './layout/header/header.layout';
 import { FooterLayoutComponent } from './layout/footer/footer.layout';
+import { PublicLayoutComponent } from './layout/public.layout';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { FooterLayoutComponent } from './layout/footer/footer.layout';
     EqualValidatorDirective,
     LoginCallbackPageComponent,
     SilentCallbackPageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    PublicLayoutComponent,
+    DashboardPageComponent,
   ],
   imports: [
     BrowserModule,
