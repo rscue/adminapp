@@ -4,6 +4,9 @@ import { Auth } from '../../services/auth.service';
 import 'select2';
 import { Router } from '@angular/router';
 import { AvatarModalPageComponent } from '../avatar/avatar.modal';
+import { ImageService } from '../../services/image.service';
+import { Observable } from 'rxjs/Observable';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -12,14 +15,16 @@ import { AvatarModalPageComponent } from '../avatar/avatar.modal';
   styleUrls: ['./profile.page.css']
 })
 export class ProfilePageComponent implements AfterViewInit {
-  public profile: ProfileModel;
+  public profile: ProfileModel = new ProfileModel();
   public states: [{ code: string, name: string }];
+  public profilePic: Observable<any>;
   @ViewChild('avatarModal') modal: AvatarModalPageComponent;
   @ViewChild('logoImg') logoImg: ElementRef;
+  private imgBlob: any;
   shouldSaveImage: boolean;
 
-  constructor(private auth: Auth, private router: Router) {
-    this.profile = this.auth.profile ? this.auth.profile : new ProfileModel();
+  constructor(private auth: Auth, private router: Router, private imageService: ImageService, private sanitizer: DomSanitizer) {
+    this.auth.getProfile().then(profile => this.profile = profile).catch(() => this.profile = new ProfileModel());
     this.setupStates();
   }
 
@@ -29,14 +34,20 @@ export class ProfilePageComponent implements AfterViewInit {
     }).on('select2:select', (e) => {
       this.profile.state = e['params'].data.id;
     }).val(this.profile.state).trigger('change');
+    this.profilePic = new Observable<any>(observer => {
+      this.imageService.get(this.profile.profilePictureUrl).then(img => {
+        this.imgBlob = img;
+        observer.next(this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(img)));
+      });
+    });
   }
 
   save(isValid: boolean) {
     if (isValid) {
       this.profile.submitted = true;
-      this.auth.saveProfile(this.profile).then(() => {
+      this.auth.saveProfile(this.profile).then((profile) => {
         if (this.shouldSaveImage) {
-          this.auth.saveAvatar(this.logoImg.nativeElement.src);
+          this.imageService.update(profile.profilePictureUrl, this.imgBlob);
         }
         this.profile.submitted = false;
         this.router.navigate(['/home']);
@@ -73,13 +84,13 @@ export class ProfilePageComponent implements AfterViewInit {
     ];
   }
 
-  changeLogo({ image, blob }) {
-    console.log(blob);
-    this.logoImg.nativeElement.src = image;
+  changeLogo(blob) {
+    this.imgBlob = blob;
+    this.logoImg.nativeElement.src = (URL.createObjectURL(blob));
     if (!this.profile.id) {
       this.shouldSaveImage = true;
     } else {
-      this.auth.saveAvatar(image);
+      this.imageService.update(this.profile.profilePictureUrl, blob);
     }
   }
 }

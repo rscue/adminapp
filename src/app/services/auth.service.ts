@@ -59,7 +59,7 @@ export class Auth {
       } else if (this.isAuthenticated()) {
         this.loadSession().then(() => {
           this.router.navigate(['home']);
-        })
+        });
       } else {
         this.login();
       }

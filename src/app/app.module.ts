@@ -27,6 +27,7 @@ import { AssignmentService } from './services/assignment.service';
 import { FleetService } from './services/fleet.service';
 import { WorkerService } from './services/worker.service';
 import { CustomAuthHttp } from './services/customAuthHttp';
+import { ImageService } from './services/image.service';
 
 import { EqualValidatorDirective } from './components/validators/equal.validator.directive';
 
@@ -78,7 +79,8 @@ import { PublicLayoutComponent } from './layout/public.layout';
     AssignmentService,
     FleetService,
     WorkerService,
-    CustomAuthHttp
+    CustomAuthHttp,
+    ImageService,
   ],
   bootstrap: [AppMainComponent]
 })
