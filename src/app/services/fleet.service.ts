@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Auth } from './auth.service';
 import { FleetModel } from '../models/fleet.model';
-import { AuthHttp } from 'angular2-jwt';
 import * as Toastr from 'toastr';
+import { CustomAuthHttp } from './customAuthHttp';
 
 declare var API_URL: string;
 
 @Injectable()
 export class FleetService {
-  constructor(private auth: Auth, private authHttp: AuthHttp) { }
+  constructor(private auth: Auth, private authHttp: CustomAuthHttp) { }
 
   add(model: FleetModel): Promise<any> {
     return new Promise((resolve, reject) => {

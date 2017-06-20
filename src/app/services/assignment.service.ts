@@ -3,19 +3,18 @@ import { Auth } from './auth.service';
 import { AssignmentsSummaryModel } from '../models/assignmentsSummary.model';
 import { AssignmentModel } from '../models/assignment.model';
 import { ClientModel } from '../models/client.model';
-import { AuthHttp } from 'angular2-jwt';
+import { CustomAuthHttp } from './customAuthHttp';
 import * as Toastr from 'toastr';
-
-declare var API_URL: string;
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AssignmentService {
     assignmentsSummary: AssignmentsSummaryModel;
 
-    constructor(private auth: Auth, private authHttp: AuthHttp) { }
+    constructor(private auth: Auth, private authHttp: CustomAuthHttp) { }
 
     getAssignmentsSummary() {
-        this.authHttp.get(`${API_URL}provider/${this.auth.profile.id}/assignmentssummary`).subscribe(data => {
+        this.authHttp.get(`${environment.ApiUrl}provider/${this.auth.profile.id}/assignmentssummary`).subscribe(data => {
             this.assignmentsSummary = data.json();
         }, err => {
             if (err.status !== 404) {
@@ -38,17 +37,17 @@ export class AssignmentService {
                 email: null,
                 id: this.guid()
             };
-            this.authHttp.post(`${API_URL}client`, client).subscribe(data => {
+            this.authHttp.post(`${environment.ApiUrl}client`, client).subscribe(data => {
                 const assignment = {
                     clientId: client.id,
-                    providerId: this.auth.auth0User['user_id'],
+                    providerId: this.auth.apiId,
                     creationDateTime: new Date(),
                     latitude: model.latitude,
                     longitude: model.longitude,
                     status: 'Assigned',
                     workerId: model.workerId
                 };
-                this.authHttp.post(`${API_URL}assignment`, assignment).subscribe(() => resolve(), err => {
+                this.authHttp.post(`${environment.ApiUrl}assignment`, assignment).subscribe(() => resolve(), err => {
                     Toastr.error('Hubo un error al guardar, intente nuevamente');
                     reject(err);
                 });
@@ -78,7 +77,7 @@ export class AssignmentService {
         params += `startDateTime=${model.startDateTime.toISOString()}&`;
         params += `endDateTime=${model.endDateTime.toISOString()}`;
         return new Promise((resolve, reject) => {
-            this.authHttp.get(`${API_URL}assignment/search?${params}`).subscribe(data => {
+            this.authHttp.get(`${environment.ApiUrl}assignment/search?${params}`).subscribe(data => {
                 resolve(data.json());
             }, err => reject(err));
         });
